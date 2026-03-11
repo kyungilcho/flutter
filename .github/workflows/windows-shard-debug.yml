@@ -1,0 +1,41 @@
+name: Windows shard debug
+
+on:
+  workflow_dispatch:
+    inputs:
+      shard:
+        description: The dev/bots shard to run
+        required: true
+        default: build_tests
+        type: string
+      subshard:
+        description: Optional subshard in the form index_total
+        required: false
+        default: 8_9
+        type: string
+
+jobs:
+  windows-shard-debug:
+    permissions:
+      contents: read
+    runs-on: windows-latest
+    timeout-minutes: 90
+    env:
+      SHARD: ${{ inputs.shard }}
+      SUBSHARD: ${{ inputs.subshard }}
+
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - uses: ./.github/actions/composite-flutter-setup
+
+      - name: Print shard selection
+        shell: bash
+        run: |
+          echo "SHARD=$SHARD"
+          echo "SUBSHARD=$SUBSHARD"
+
+      - name: Run shard
+        shell: bash
+        run: |
+          dart --enable-asserts dev/bots/test.dart
