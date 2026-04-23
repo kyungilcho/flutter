@@ -581,11 +581,7 @@ class AndroidGradleBuilder implements AndroidBuilder {
             gradleExecutablePath: gradleExecutablePath,
             buildInfo: buildInfo,
           )
-        : await _getInstalledConfiguredAndroidNdkVersion(
-            project: project,
-            gradleExecutablePath: gradleExecutablePath,
-            buildInfo: buildInfo,
-          );
+        : null;
     if (preprovisionedNdkVersion != null) {
       options.add('-P$_kPreprovisionedNdkVersionProperty=$preprovisionedNdkVersion');
     }
@@ -1049,28 +1045,6 @@ class AndroidGradleBuilder implements AndroidBuilder {
     }
 
     return result;
-  }
-
-  Future<String?> _getInstalledConfiguredAndroidNdkVersion({
-    required FlutterProject project,
-    required String gradleExecutablePath,
-    required BuildInfo buildInfo,
-  }) async {
-    final AndroidSdk? androidSdk = globals.androidSdk;
-    if (androidSdk == null || !androidSdk.directory.existsSync()) {
-      return null;
-    }
-
-    final String? requiredNdkVersion = await _getNdkVersion(
-      project: project,
-      gradleExecutablePath: gradleExecutablePath,
-      buildInfo: buildInfo,
-    );
-    if (requiredNdkVersion == null) {
-      return null;
-    }
-
-    return androidSdk.hasNdkVersion(requiredNdkVersion) ? requiredNdkVersion : null;
   }
 
   @override
