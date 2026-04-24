@@ -1499,7 +1499,7 @@ void main() {
               .directory(fileSystem.path.join(sdkPath(), 'cmdline-tools', 'latest', 'bin'))
               .childFile(apkAnalyzerBinaryName)
               .createSync(recursive: true);
-          final AndroidSdk sdk = AndroidSdk(
+          final sdk = AndroidSdk(
             fileSystem.directory(sdkPath()),
             java: FakeJava(),
             fileSystem: fileSystem,
@@ -1591,7 +1591,7 @@ void main() {
               .directory(fileSystem.path.join(sdkPath(), 'cmdline-tools', 'latest', 'bin'))
               .childFile(apkAnalyzerBinaryName)
               .createSync(recursive: true);
-          final AndroidSdk sdk = AndroidSdk(
+          final sdk = AndroidSdk(
             fileSystem.directory(sdkPath()),
             java: FakeJava(),
             fileSystem: fileSystem,
