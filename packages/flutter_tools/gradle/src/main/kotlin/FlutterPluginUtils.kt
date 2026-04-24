@@ -999,7 +999,7 @@ object FlutterPluginUtils {
         project.tasks.register(TASK_PRINT_NDK_VERSION) {
             description = "Prints out the configured ndkVersion for this Android project"
             doLast {
-                val configuredNdkVersion = androidExtension.ndkVersion ?: FlutterExtension().ndkVersion
+                val configuredNdkVersion = androidExtension.ndkVersion ?: getFlutterExtensionOrNull(project)?.ndkVersion
                 println("$NDK_VERSION_OUTPUT_PREFIX$configuredNdkVersion")
             }
         }
